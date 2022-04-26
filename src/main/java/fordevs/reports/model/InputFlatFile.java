@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InputFile {
+public class InputFlatFile {
     private Long id;
 
     private String firstName;

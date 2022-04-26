@@ -1,4 +1,4 @@
-package fordevs.reports;
+package fordevs.reports.app;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("fordevs.reports.config")
+@ComponentScan(basePackages = {"fordevs.reports.app", "fordevs.reports.config", "fordevs.reports.processor", "fordevs.reports.writer","fordevs.reports.reader"})
 @EnableBatchProcessing
 public class ReportsApplication {
 

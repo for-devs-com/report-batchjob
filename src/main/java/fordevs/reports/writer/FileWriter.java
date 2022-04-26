@@ -1,17 +1,21 @@
 package fordevs.reports.writer;
 
-import fordevs.reports.model.InputFile;
+import fordevs.reports.model.ExcelFile;
+import fordevs.reports.model.InputFlatFile;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.ParseException;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-public class FileWriter<InputFile> implements ItemWriter<InputFile> {
+@Component
+public class FileWriter implements ItemWriter<InputFlatFile> {
+
     @Override
-    public void write(List<? extends InputFile> items) throws Exception, ParseException {
+    public void write(List<? extends InputFlatFile> items) throws Exception, ParseException {
         System.out.println("Chunking...");
-        for (InputFile item : items) {
-            System.out.println(item);
+        for (InputFlatFile item : items) {
+            System.out.println(item.toString());
         }
     }
 
