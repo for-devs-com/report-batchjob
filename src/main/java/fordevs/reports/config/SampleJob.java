@@ -75,7 +75,7 @@ public class SampleJob {
                 new FlatFileItemReader<>();
 
         //Set input file location
-        itemReader.setResource(new FileSystemResource("inputs/students.csv"));
+        itemReader.setResource(new FileSystemResource("inputs/txtstudents.txt"));
 
         //Set number of lines to skip. Use it if file has header rows.
         itemReader.setLinesToSkip(1);
@@ -84,7 +84,7 @@ public class SampleJob {
         itemReader.setLineMapper(new DefaultLineMapper<>() {
             {
                 //4 columns in each row
-                setLineTokenizer(new DelimitedLineTokenizer("|") {
+                setLineTokenizer(new DelimitedLineTokenizer(",") {
                     {
                         setNames("ID", "First Name", "Last Name", "Email");
                     }
