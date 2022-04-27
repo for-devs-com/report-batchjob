@@ -11,7 +11,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"fordevs.reports.app", "fordevs.reports.config", "fordevs.reports.processor", "fordevs.reports.writer","fordevs.reports.reader"})
+@ComponentScan(basePackages = {
+		"fordevs.reports.app",
+		"fordevs.reports.config",
+		"fordevs.reports.controller",
+		"fordevs.reports.service",
+		"fordevs.reports.processor",
+		"fordevs.reports.writer",
+		"fordevs.reports.reader"
+})
 @EnableBatchProcessing
 public class ReportsApplication {
 
@@ -33,3 +41,6 @@ public class ReportsApplication {
 	}
 
 }
+
+
+

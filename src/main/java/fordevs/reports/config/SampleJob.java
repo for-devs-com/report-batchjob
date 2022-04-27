@@ -1,38 +1,22 @@
 package fordevs.reports.config;
 
-import fordevs.reports.model.ExcelFile;
 import fordevs.reports.model.InputFlatFile;
-import fordevs.reports.processor.FileProcessor;
-import fordevs.reports.reader.ExcelRowMapper;
-import fordevs.reports.writer.BookWriter;
+import fordevs.reports.reader.InputFileReader;
+import fordevs.reports.service.SendMailService;
 import fordevs.reports.writer.Csv2Excel;
-import fordevs.reports.writer.ExcelFileWriter;
-import fordevs.reports.writer.FileWriter;
-import org.apache.poi.xssf.streaming.SXSSFSheet;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.extensions.excel.RowMapper;
-import org.springframework.batch.extensions.excel.mapping.BeanWrapperRowMapper;
-import org.springframework.batch.extensions.excel.poi.PoiItemReader;
-import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-
-import java.util.function.Function;
 
 
 @Configuration
@@ -41,7 +25,10 @@ public class SampleJob {
     @Autowired StepBuilderFactory stepBuilderFactory;
 
 //  @Autowired FileProcessor itemProcessor;
+    @Autowired InputFileReader fileReader;
     @Autowired Csv2Excel csv2Excel;
+    @Autowired
+    SendMailService sendMailService;
 
 
 //    @Value("inputs/txtstudents.txt")
@@ -55,6 +42,7 @@ public class SampleJob {
                 .get("chunkJob")
                 .incrementer(new RunIdIncrementer())
                 .start(chunkStep())
+                .next(mailStep())
                 .build();
     }
     @Bean
@@ -66,7 +54,12 @@ public class SampleJob {
                 .writer(csv2Excel)
                 .build();
     }
-
+    private Step mailStep() {
+        return stepBuilderFactory.get("mailStep")
+                .tasklet(sendMailService)
+                //.listener(stepListener)
+                .build();
+    }
 
     @Bean
     public FlatFileItemReader<InputFlatFile> flatFileItemReader(){

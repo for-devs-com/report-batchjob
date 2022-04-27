@@ -28,7 +28,6 @@ public class Csv2Excel implements ItemStreamWriter<InputFlatFile> {
         createHeaderRow(sheet);
     }
 
-
     @Override
     public void update(ExecutionContext executionContext) throws ItemStreamException {
 
@@ -39,7 +38,7 @@ public class Csv2Excel implements ItemStreamWriter<InputFlatFile> {
 
         Cell cell = row.createCell(0);
         cell.setCellValue("ID");
-        sheet.autoSizeColumn(0);
+        sheet.setColumnWidth(0, colWidth(6.0)); // Custom column width
 
         cell = row.createCell(1);
         cell.setCellValue("FIRST NAME");
@@ -52,9 +51,12 @@ public class Csv2Excel implements ItemStreamWriter<InputFlatFile> {
         cell = row.createCell(3);
         cell.setCellValue("EMAIL");
         sheet.autoSizeColumn(3);
-
         currentRow++;
 
+    }
+
+    public int colWidth(double width){
+        return (int) Math.round(width * 256 + 200);
     }
 
     public void write(List<? extends InputFlatFile> items) throws Exception {
@@ -65,7 +67,7 @@ public class Csv2Excel implements ItemStreamWriter<InputFlatFile> {
 
 
             row.createCell(0).setCellValue(item.getId());
-            sheet.autoSizeColumn(0);
+            //sheet.autoSizeColumn(0);
             row.createCell(1).setCellValue(item.getFirstName());
             sheet.autoSizeColumn(1);
             row.createCell(2).setCellValue(item.getLastName());
