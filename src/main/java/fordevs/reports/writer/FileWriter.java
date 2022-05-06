@@ -1,6 +1,6 @@
 package fordevs.reports.writer;
 
-import fordevs.reports.model.ExcelFile;
+//import fordevs.reports.model.ExcelFile;
 import fordevs.reports.model.InputFlatFile;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.ParseException;

@@ -20,6 +20,7 @@ import java.io.File;
 
 @Service
 public class SendMailService implements Tasklet, EmailService {
+
     @Autowired
     private JavaMailSender javaMailSender;
     @Value("${spring.mail.username}")

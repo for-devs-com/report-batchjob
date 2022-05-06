@@ -1,7 +1,7 @@
 package fordevs.reports.config;
 
 import fordevs.reports.model.InputFlatFile;
-import fordevs.reports.reader.InputFileReader;
+//import fordevs.reports.reader.InputFileReader;
 import fordevs.reports.service.SendMailService;
 import fordevs.reports.writer.Csv2Excel;
 import org.springframework.batch.core.Job;
@@ -21,14 +21,11 @@ import org.springframework.core.io.FileSystemResource;
 
 @Configuration
 public class SampleJob {
+
     @Autowired JobBuilderFactory jobBuilderFactory;
     @Autowired StepBuilderFactory stepBuilderFactory;
-
-//  @Autowired FileProcessor itemProcessor;
-    @Autowired InputFileReader fileReader;
     @Autowired Csv2Excel csv2Excel;
-    @Autowired
-    SendMailService sendMailService;
+    @Autowired SendMailService sendMailService;
 
 
 //    @Value("inputs/txtstudents.txt")
